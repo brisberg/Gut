@@ -110,7 +110,7 @@ func _is_supported_default(type_flag):
 
 
 func _make_stub_default(method, index):
-	return str('__gut_default_val("', method, '",', index, ')')
+	return str('__gut_helper__.get_default_val("', method, '",', index, ')')
 
 func _make_arg_array(method_meta, override_size):
 	var to_return = []

@@ -354,7 +354,7 @@ var _strategy = null
 var _base_script_text = _utils.get_file_as_text('res://addons/gut/double_templates/script_template.txt')
 var _make_files = false
 # used by tests for debugging purposes.
-var _print_source = false
+var _print_source = true
 
 func _init(strategy=_utils.DOUBLE_STRATEGY.PARTIAL):
 	set_logger(_utils.get_logger())
@@ -452,8 +452,30 @@ func _write_file(obj_info, dest_path, override_path=null):
 
 	f.close()
 	if(_print_source):
-		print(f.get_contents())
+		_print_the_source(f.get_contents())
+
+
 	return f
+
+
+
+func _rpad(thing, amt, pad=' '):
+	var to_return = str(thing)
+	for i in range(to_return.length(), amt):
+		to_return += pad
+
+	return to_return
+
+
+func _print_the_source(src):
+	var lines = src.split("\n")
+
+	var max_lnum_length = str(lines.size()).length() + 1
+
+	var linenum = 1
+	for line in lines:
+		print(_rpad(linenum, max_lnum_length), '|', line)
+		linenum += 1
 
 
 func _double_scene_and_script(scene_info):

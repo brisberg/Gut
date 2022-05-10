@@ -10,6 +10,11 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Reference",
+"class": "GutHelper",
+"language": "GDScript",
+"path": "res://addons/gut/double_templates/gut_helper.gd"
+}, {
+"base": "Reference",
 "class": "GutHookScript",
 "language": "GDScript",
 "path": "res://addons/gut/hook_script.gd"
@@ -20,6 +25,7 @@ _global_script_classes=[ {
 "path": "res://addons/gut/test.gd"
 } ]
 _global_script_class_icons={
+"GutHelper": "",
 "GutHookScript": "",
 "GutTest": ""
 }
