@@ -20,7 +20,7 @@ class BaseTest:
 		return to_return
 
 	func _pdflt(method, idx):
-		return str('__gut_default_val("', method, '",', idx, ')')
+		return str('__gut_helper__.get_default_val("', method, '",', idx, ')')
 
 
 	func _sig_gen(method, no_defaults):
@@ -92,19 +92,19 @@ class TestTheBasics:
 	func test_all_parameters_are_defaulted_to_null():
 		var inst = gr.doubler.double(DOUBLE_ME_PATH).new()
 		var text = get_instance_source(inst)
-		assert_true(text.match('*has_two_params_one_default(p_arg0=__gut_default_val("has_two_params_one_default",0), p_arg1=__gut_default_val("has_two_params_one_default",1))*'))
+		assert_true(text.match('*has_two_params_one_default(p_arg0=__gut_helper__.get_default_val("has_two_params_one_default",0), p_arg1=__gut_helper__.get_default_val("has_two_params_one_default",1))*'))
 
 	func test_doubled_thing_includes_stubber_metadata():
 		var doubled = gr.doubler.double(DOUBLE_ME_PATH).new()
-		assert_ne(doubled.get('__gut_metadata_'), null)
+		assert_ne(doubled.__gut_helper__.gut_metadata, null)
 
 	func test_doubled_thing_has_original_path_in_metadata():
 		var doubled = gr.doubler.double(DOUBLE_ME_PATH).new()
-		assert_eq(doubled.__gut_metadata_.path, DOUBLE_ME_PATH)
+		assert_eq(doubled.__gut_helper__.gut_metadata.path, DOUBLE_ME_PATH)
 
 	func test_doublecd_thing_has_gut_metadata():
 		var doubled = gr.doubler.double(DOUBLE_ME_PATH).new()
-		assert_eq(doubled.__gut_metadata_.gut, gut)
+		assert_eq(doubled.__gut_helper__.gut_metadata.gut, gut)
 
 	func test_keeps_extends():
 		var doubled = gr.doubler.double(DOUBLE_EXTENDS_NODE2D).new()
@@ -138,7 +138,7 @@ class TestTheBasics:
 
 	func test_metadata_for_scenes_script_points_to_scene_not_script():
 		var inst = gr.doubler.double_scene(DOUBLE_ME_SCENE_PATH).instance()
-		assert_eq(inst.__gut_metadata_.path, DOUBLE_ME_SCENE_PATH)
+		assert_eq(inst.__gut_helper__.gut_metadata.path, DOUBLE_ME_SCENE_PATH)
 
 	func test_does_not_add_duplicate_methods():
 		gr.doubler.double('res://test/resources/parsing_and_loading_samples/extends_another_thing.gd')
@@ -148,6 +148,8 @@ class TestTheBasics:
 	func test_returns_class_that_can_be_instanced():
 		var Doubled = gr.doubler.double(DOUBLE_ME_PATH)
 		var doubled = Doubled.new()
+		print(doubled)
+		print(doubled.__gut_helper__.gut_metadata)
 		assert_ne(doubled, null)
 
 	func test_get_set_logger():
@@ -380,11 +382,11 @@ class TestDoubleInnerClasses:
 
 	func test_doubled_inners_have_subpath_set_in_metadata():
 		var inst = doubler.double_inner(INNER_CLASSES_PATH, 'InnerCA').new()
-		assert_eq(inst.__gut_metadata_.subpath, 'InnerCA')
+		assert_eq(inst.__gut_helper__.gut_metadata.subpath, 'InnerCA')
 
 	func test_non_inners_have_empty_subpath():
 		var inst = doubler.double(INNER_CLASSES_PATH).new()
-		assert_eq(inst.__gut_metadata_.subpath, '')
+		assert_eq(inst.__gut_helper__.gut_metadata.subpath, '')
 
 	func test_can_override_strategy_when_doubling():
 		#doubler.set_strategy(DOUBLE_STRATEGY.FULL)

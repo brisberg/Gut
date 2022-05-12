@@ -355,6 +355,7 @@ var _base_script_text = _utils.get_file_as_text('res://addons/gut/double_templat
 var _make_files = false
 # used by tests for debugging purposes.
 var _print_source = true
+var _print_source_line_nums = true
 
 func _init(strategy=_utils.DOUBLE_STRATEGY.PARTIAL):
 	set_logger(_utils.get_logger())
@@ -452,7 +453,7 @@ func _write_file(obj_info, dest_path, override_path=null):
 
 	f.close()
 	if(_print_source):
-		_print_the_source(f.get_contents())
+		_print_the_source(f.get_contents(), _print_source_line_nums)
 
 
 	return f
@@ -467,12 +468,15 @@ func _rpad(thing, amt, pad=' '):
 	return to_return
 
 
-func _print_the_source(src):
+func _print_the_source(src, incl_line_nums=true):
+	if(!incl_line_nums):
+		print(src)
+		return
+
 	var lines = src.split("\n")
-
 	var max_lnum_length = str(lines.size()).length() + 1
-
 	var linenum = 1
+
 	for line in lines:
 		print(_rpad(linenum, max_lnum_length), '|', line)
 		linenum += 1

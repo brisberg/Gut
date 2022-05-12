@@ -148,9 +148,6 @@ func _on_http_request_latest_version_completed(result, response_code, headers, b
 				should_display_latest_version = true
 
 
-
-const GUT_METADATA = '__gut_metadata_'
-
 enum DOUBLE_STRATEGY{
 	FULL,
 	PARTIAL
@@ -253,7 +250,7 @@ func is_not_freed(obj):
 func is_double(obj):
 	var to_return = false
 	if(typeof(obj) == TYPE_OBJECT and is_instance_valid(obj)):
-		to_return = obj.has_method('__gut_instance_from_id')
+		to_return = obj.has_method('__is_gut_double')
 	return to_return
 
 

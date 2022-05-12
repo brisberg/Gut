@@ -23,7 +23,7 @@ class TestBoth:
 
 	func test_spy_is_set_in_metadata():
 		var inst = _doubler.double(DOUBLE_ME_PATH).new()
-		assert_eq(inst.__gut_metadata_.spy, _spy)
+		assert_eq(inst.__gut_helper__.gut_metadata.spy, _spy)
 
 	func test_when_doubled_method_called_spy_sees_it():
 		var inst = _doubler.double(DOUBLE_ME_PATH).new()

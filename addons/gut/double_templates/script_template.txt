@@ -9,8 +9,10 @@
 # ------------------------------------------------------------------------------
 # GUT Double properties and methods
 # ------------------------------------------------------------------------------
-var __gut_helper__ = GutHelper.new()
+var __gut_helper__ = GutHelper.new(self)
 
+func __is_gut_double():
+	return true
 
 func __init_gut_helper():
 	__gut_helper__.gut_metadata.path = '{path}'

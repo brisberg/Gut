@@ -34,7 +34,7 @@ func after_all():
 
 func test_doubled_have_ref_to_stubber():
 	var d = gr.doubler.double(DOUBLE_ME_PATH).new()
-	assert_eq(d.__gut_metadata_.stubber, gr.stubber)
+	assert_eq(d.__gut_helper__.gut_metadata.stubber, gr.stubber)
 
 func test_stubbing_method_returns_expected_value():
 	var D = gr.doubler.double(DOUBLE_ME_PATH)

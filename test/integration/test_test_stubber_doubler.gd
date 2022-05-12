@@ -26,7 +26,7 @@ class TestBasics:
 
 	func test_double_sets_stubber_for_doubled_class():
 		var d = gr.test.double(DOUBLE_ME_PATH).new()
-		assert_eq(d.__gut_metadata_.stubber, gr.gut.get_stubber())
+		assert_eq(d.__gut_helper__.gut_metadata.stubber, gr.gut.get_stubber())
 
 	func test_basic_double_and_stub():
 		var d = gr.test.double(DOUBLE_ME_PATH).new()
@@ -149,16 +149,16 @@ class TestTestsSmartDoubleMethod:
 
 	func test_when_passed_a_script_it_doubles_script():
 		var inst = _test.double(DOUBLE_ME_PATH).new()
-		assert_eq(inst.__gut_metadata_.path, DOUBLE_ME_PATH)
+		assert_eq(inst.__gut_helper__.gut_metadata.path, DOUBLE_ME_PATH)
 
 	func test_when_passed_a_scene_it_doubles_a_scene():
 		var inst = _test.double(DOUBLE_ME_SCENE_PATH).instance()
-		assert_eq(inst.__gut_metadata_.path, DOUBLE_ME_SCENE_PATH)
+		assert_eq(inst.__gut_helper__.gut_metadata.path, DOUBLE_ME_SCENE_PATH)
 
 	func test_when_passed_script_and_inner_it_doulbes_it():
 		var inst = _test.double(INNER_CLASSES_PATH, 'InnerA').new()
-		assert_eq(inst.__gut_metadata_.path, INNER_CLASSES_PATH, 'check path')
-		assert_eq(inst.__gut_metadata_.subpath, 'InnerA', 'check subpath')
+		assert_eq(inst.__gut_helper__.gut_metadata.path, INNER_CLASSES_PATH, 'check path')
+		assert_eq(inst.__gut_helper__.gut_metadata.subpath, 'InnerA', 'check subpath')
 
 	func test_full_strategy_used_for_scripts():
 		var inst = _test.double(DOUBLE_ME_PATH, DOUBLE_STRATEGY.FULL).new()
@@ -177,16 +177,16 @@ class TestTestsSmartDoubleMethod:
 
 	func test_when_passing_a_class_of_a_script_it_doubles_it():
 		var inst = _test.double(DoubleMe).new()
-		assert_eq(inst.__gut_metadata_.path, DOUBLE_ME_PATH)
+		assert_eq(inst.__gut_helper__.gut_metadata.path, DOUBLE_ME_PATH)
 
 	func test_when_passing_a_class_of_a_scene_it_doubles_it():
 		var inst = _test.double(DoubleMeScene).instance()
-		assert_eq(inst.__gut_metadata_.path, DOUBLE_ME_SCENE_PATH)
+		assert_eq(inst.__gut_helper__.gut_metadata.path, DOUBLE_ME_SCENE_PATH)
 
 	func test_when_passing_a_class_of_an_inner_it_doubles_it():
 		var inst = _test.double(InnerClasses, 'InnerA').new()
-		assert_eq(inst.__gut_metadata_.path, INNER_CLASSES_PATH, 'check path')
-		assert_eq(inst.__gut_metadata_.subpath, 'InnerA', 'check subpath')
+		assert_eq(inst.__gut_helper__.gut_metadata.path, INNER_CLASSES_PATH, 'check path')
+		assert_eq(inst.__gut_helper__.gut_metadata.subpath, 'InnerA', 'check subpath')
 
 	func test_can_double_native_classes():
 		var inst = _test.double(Node2D).new()
@@ -382,11 +382,11 @@ class TestOverridingParameters:
 
 # 	func test_double_gives_double():
 # 		var inst = _test.double_singleton("Input").new()
-# 		assert_eq(inst.__gut_metadata_.from_singleton, "Input")
+# 		assert_eq(inst.__gut_helper__.gut_metadata.from_singleton, "Input")
 
 # 	func test_partial_gives_partial_double():
 # 		var inst = _test.partial_double_singleton("Input").new()
-# 		assert_true(inst.__gut_metadata_.is_partial)
+# 		assert_true(inst.__gut_helper__.gut_metadata.is_partial)
 
 # 	func test_double_errors_if_not_passed_a_string():
 # 		var value = _test.double_singleton(Node2D)

@@ -1,5 +1,4 @@
-var __gut_metadata_ = {
-    path = '',
-    subpath='',
-    from_singleton='',
-}
+var __gut_helper__ = GutHelper.new(self)
+
+func __is_gut_double():
+	return true
